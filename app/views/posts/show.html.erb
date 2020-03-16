@@ -1,0 +1,13 @@
+<div class="container">
+	<%= @post.description%>
+	<%= image_tag(@post.image, class: 'img-fluid')%>
+	<% if user_signed_in?%>
+	<%= render 'comments/form'%>
+	<%end%>
+	<% @post.comments.each do |c|%>
+	<%=c.user.fname%> <%=c.user.lname%><br>
+	<%= c.content%>
+	<hr>
+	<%end%>
+	
+</div>

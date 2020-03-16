@@ -1,0 +1,34 @@
+<div class="container py-5">
+	<h3>my friends</h3>
+	<% @friends.each do |friend|%>
+        <%= link_to profile_path(friend) do%>
+ 		     <div style="background-image: url(<%=rails_blob_url(friend.image) %>);" class="user-img mr-2"></div>
+            <span class="top"> <%= friend.fname%> <%= friend.lname%></span>
+       <%end%>
+ 		<hr>
+	<%end%>
+
+	<h3>list mutulaul friends</h3>
+	<% @user.not_friends.each do |user|%>
+	<%= link_to profile_path(user)do %>
+		<%= user.fname%> <%= user.lname%> 
+	<%end%>
+		<%= form_tag ({controller: 'friends', action: 'create', method: 'post', id: user.id}) do %>
+            <input class="btn btn-primary" type=submit value='Send Friend Request'>
+        <% end %>
+	<hr>
+	<%end%>
+
+
+	<% if @user.friend_requests? %>                    
+        <h3>Friend Requests:</h3>
+        <% @requests.each do |friend| %>
+        	<%= friend.fname%><%= friend.lname%>
+            <%= form_tag ({controller: 'friends', action: 'add', method: 'post', id: friend.id}) do %>
+                <input class="" type=submit value='Accept'>
+            <% end %>
+            <%#= form_tag ({controller: 'friends', action: 'reject', method: 'post', id: friend.id}) do %>
+               <!--  <input class="ui basic tiny right floated negative button" type=submit value='Politely Refuse'> -->
+            <%# end %>
+    	<% end %>
+    <% end %>

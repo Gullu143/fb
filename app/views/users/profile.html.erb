@@ -1,0 +1,19 @@
+<div class="container py-5">
+	<strong>Name</strong>	<%= @user.fname%> <%= @user.lname%>
+	<br>
+  <strong>Email:</strong> <%= @user.email%>
+  <%= image_tag (@user.image), class: 'img-fluid' if @user.image.attached? %>
+	<div class="row py-4">
+  		<% @user.posts.each do |post|%>
+	   		<div class="col-md-3">
+	   			<div class="card">
+	   				<div class="card-body">
+		   				<%= post.description%>
+		  				<%= image_tag (post.image), class: 'img-fluid' if post.image.attached? %>
+	   				</div>
+	   			</div>
+	   		</div>
+  		<%end%>
+  	</div>
+
+</div>

@@ -1,0 +1,36 @@
+<div class="container py-3">
+	<div class="row">
+		<% @post.each do |post|%>
+			<div class="col-md-4 mb-3">
+				<%= link_to profile_path(post.user.id) do%>
+					<strong><%= post.user.fname%> <%= post.user.lname%>:</strong>
+				<%end%>
+				<%= link_to post_path(post) do%>
+					<%= post.description%>
+					<% end%>
+				<%= image_tag(post.image, class: 'img-fluid') if post.image.attached?%>
+				<span class="like_count">
+					<%=post.get_likes.size%> likes
+				</span>
+				<% if user_signed_in?%>
+					<a>
+						<% if current_user.liked? post%>
+							<div>
+								<%= link_to like_post_path(post, 'unlike'), class: 'preached-btn', method: :put, remote: :true do %>
+									<i class="fas fa-heart"></i>
+								<% end %>
+							</div>
+						<% else %>
+							<div>
+								<%= link_to like_post_path(post, 'like'), class: 'preach-btn', method: :put, remote: :true do %>
+								<i class="far fa-heart"></i>
+								<% end %>
+							</div>
+						<%end%>
+					</a>
+				<%end%>
+				<%= post.comments.count%> comments
+			</div>
+		<%end%>
+	</div>
+</div>
