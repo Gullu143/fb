@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :comments
   post '/create', to:'friends#create'
   post "/add", to: "friends#add"
+  post 'remove', to: 'friends#remove'
+  post 'reject', to: 'friends#reject'
   get 'users/profile/:id', to: 'users#profile', as: 'profile'
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations'}
 end

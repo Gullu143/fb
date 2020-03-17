@@ -5,30 +5,31 @@
  		     <div style="background-image: url(<%=rails_blob_url(friend.image) %>);" class="user-img mr-2"></div>
             <span class="top"> <%= friend.fname%> <%= friend.lname%></span>
        <%end%>
- 		<hr>
+       <hr class="my-1">
 	<%end%>
-
-	<h3>list mutulaul friends</h3>
+	<h3 class="mt-3">list mutulaul friends</h3>
 	<% @user.not_friends.each do |user|%>
-	<%= link_to profile_path(user)do %>
-		<%= user.fname%> <%= user.lname%> 
-	<%end%>
-		<%= form_tag ({controller: 'friends', action: 'create', method: 'post', id: user.id}) do %>
+        <%= link_to profile_path(user)do %>
+           <%= user.fname%> <%= user.lname%> 
+        <%end%>
+        <%= form_tag ({controller: 'friends', action: 'create', method: :post, id: user.id}) do %>
             <input class="btn btn-primary" type=submit value='Send Friend Request'>
         <% end %>
-	<hr>
 	<%end%>
-
-
+    <hr>
+    <h3>Friend Requests:</h3>
 	<% if @user.friend_requests? %>                    
-        <h3>Friend Requests:</h3>
         <% @requests.each do |friend| %>
-        	<%= friend.fname%><%= friend.lname%>
+        <%= link_to profile_path(friend) do%>
+        	<%= friend.fname%> <%= friend.lname%>
+            <%end%>
             <%= form_tag ({controller: 'friends', action: 'add', method: 'post', id: friend.id}) do %>
-                <input class="" type=submit value='Accept'>
+                <input class="btn btn-primary" type=submit value='Accept'>
             <% end %>
-            <%#= form_tag ({controller: 'friends', action: 'reject', method: 'post', id: friend.id}) do %>
-               <!--  <input class="ui basic tiny right floated negative button" type=submit value='Politely Refuse'> -->
-            <%# end %>
+            <%= form_tag ({controller: 'friends', action: 'reject', method: 'post', id: friend.id}) do %>
+                <input class="btn btn-danger" type=submit value='Reject'>
+            <% end %>
     	<% end %>
+        <%else%>
+        there is no request
     <% end %>

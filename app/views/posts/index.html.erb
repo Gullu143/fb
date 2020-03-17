@@ -10,6 +10,7 @@
 					<%= post.description%>
 					<% end%>
 				<%= image_tag(post.image, class: 'img-fluid') if post.image.attached?%>
+				<span class="parent-likes">
 				<span class="like_count">
 					<%=post.get_likes.size%> likes
 				</span>
@@ -18,7 +19,7 @@
 						<% if current_user.liked? post%>
 							<div>
 								<%= link_to like_post_path(post, 'unlike'), class: 'preached-btn', method: :put, remote: :true do %>
-									<i class="fas fa-heart"></i>
+									<i class="fas fa-heart"></i> 
 								<% end %>
 							</div>
 						<% else %>
@@ -30,6 +31,7 @@
 						<%end%>
 					</a>
 				<%end%>
+			</span>
 				<%= post.comments.count%> comments
 			</div>
 		<%end%>

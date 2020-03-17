@@ -38,8 +38,10 @@ class PostsController < ApplicationController
   def like
     @post = Post.find(params[:id])
     if params[:format] == 'like'
+      p ' Hamza'
       @post.liked_by current_user
     elsif params[:format] == 'unlike'
+      p 'Jutt'
       @post.unliked_by current_user
     end
   end
